@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Configuration;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json.Linq;
 using System.Diagnostics;
+#pragma warning disable
 
 namespace Brainfuck
 {
@@ -39,22 +39,6 @@ namespace Brainfuck
             bw.RunWorkerCompleted += BuildComplete;
             tbn = new List<string>();
             tfp = new List<string>();
-        }
-
-        private string GetPath()
-        {
-            try
-            {
-                var data = File.ReadAllText("setup.json");
-                var jObject = JObject.Parse(data);
-                if (jObject != null) return jObject["path"].ToString();
-            } catch(Exception e)
-            {
-                MessageBox.Show(e.Message);
-                Environment.Exit(-1);
-            }
-
-            return null;
         }
 
         private void BuildComplete(object sender, RunWorkerCompletedEventArgs e)
@@ -90,10 +74,10 @@ namespace Brainfuck
             }
             else if (bs == BuildState.BuildRun)
             {
-                string path = GetPath();
+                string path = ConfigurationManager.AppSettings["dmd"];
                 msg = "Build succeed.";
 
-                if (path == string.Empty)
+                if (string.IsNullOrEmpty(path))
                 {
                     MessageBox.Show("You have not set up the compiler path!", "Brainfuck", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     msg = "Build unsuccessful!";
@@ -110,7 +94,7 @@ namespace Brainfuck
 
                 ProcessStartInfo ps = new ProcessStartInfo()
                 {
-                    FileName = path,
+                    FileName = $"{path}\\dmd.exe",
                     Arguments = string.Format("-O {0} -of={1}", script, app),
                     CreateNoWindow = true,
                     UseShellExecute = false,

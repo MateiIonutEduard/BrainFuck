@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Drawing;
-using Newtonsoft.Json;
+using System.Configuration;
 using System.Windows.Forms;
-using Newtonsoft.Json.Linq;
+#pragma warning disable
 
 namespace Brainfuck
 {
@@ -14,9 +15,9 @@ namespace Brainfuck
         {
             InitializeComponent();
             Icon = Icon.FromHandle(Properties.Resources.bf.GetHicon());
-            path = GetPath();
-
-            if (path != string.Empty && File.Exists(path))
+            path = ConfigurationManager.AppSettings["dmd"];
+            
+            if (!string.IsNullOrEmpty(path) && File.Exists($"{path}\\dmd.exe"))
             {
                 var folder = Directory.GetParent(path).ToString();
                 label1.ForeColor = Color.ForestGreen;
@@ -36,52 +37,44 @@ namespace Brainfuck
         {
             panel1.Focus();
             FolderBrowserDialog dialog = new FolderBrowserDialog();
-
+            // Find the path manually...
             if (dialog.ShowDialog() == DialogResult.OK)
+            {
                 textBox1.Text = dialog.SelectedPath;
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings["dmd"].Value = dialog.SelectedPath;
+
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("appSettings");
+            }
             else Close();
-        }
-
-        private string GetPath()
-        {
-            try
-            {
-                var data = File.ReadAllText("setup.json");
-                var jObject = JObject.Parse(data);
-                if (jObject != null) return jObject["path"].ToString();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                Environment.Exit(-1);
-            }
-
-            return null;
-        }
-
-        private void SetPath(string folder)
-        {
-            try
-            {
-                var data = File.ReadAllText("setup.json");
-                var jObject = JObject.Parse(data);
-                if (jObject != null) jObject["path"] = path = Path.Combine(folder, "dmd.exe");
-                string output = JsonConvert.SerializeObject(jObject);
-                File.WriteAllText("setup.json", output);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                Environment.Exit(-1);
-            }
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            label1.ForeColor = Color.ForestGreen;
-            label1.Text = "Path was found: " + textBox1.Text;
-            SetPath(textBox1.Text);
-            Close();
+            if (!string.IsNullOrEmpty(textBox1.Text))
+            {
+                label1.ForeColor = Color.ForestGreen;
+                label1.Text = "Path was found: " + textBox1.Text;
+                Close();
+            } else
+            {
+                var name = Environment.GetEnvironmentVariable("path").Split(';');
+
+                var path = (from node in name.ToList()
+                            where File.Exists($"{node}\\dmd.exe")
+                            select node).FirstOrDefault();
+
+                textBox1.Text = path;
+                label1.Text = "Path was found: " + textBox1.Text;
+
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings["dmd"].Value = path;
+
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("appSettings");
+                Close();
+            }
         }
     }
 }
