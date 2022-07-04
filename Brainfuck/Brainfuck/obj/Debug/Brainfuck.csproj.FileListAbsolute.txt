@@ -28,3 +28,17 @@ E:\TrueApps\BFCompiler\Brainfuck\Brainfuck\obj\Debug\Brainfuck.Properties.Resour
 E:\TrueApps\BFCompiler\Brainfuck\Brainfuck\obj\Debug\Brainfuck.csproj.GenerateResource.Cache
 E:\TrueApps\BFCompiler\Brainfuck\Brainfuck\obj\Debug\Brainfuck.exe
 E:\TrueApps\BFCompiler\Brainfuck\Brainfuck\obj\Debug\Brainfuck.pdb
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\bin\Debug\Brainfuck.exe.config
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\bin\Debug\Brainfuck.exe
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\bin\Debug\Brainfuck.pdb
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\obj\Debug\Brainfuck.csproj.AssemblyReference.cache
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\obj\Debug\Brainfuck.csproj.SuggestedBindingRedirects.cache
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\obj\Debug\Brainfuck.About.resources
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\obj\Debug\Brainfuck.Brainfuck.resources
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\obj\Debug\Brainfuck.Help.resources
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\obj\Debug\Brainfuck.Properties.Resources.resources
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\obj\Debug\Brainfuck.Setup.resources
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\obj\Debug\Brainfuck.csproj.GenerateResource.cache
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\obj\Debug\Brainfuck.csproj.CoreCompileInputs.cache
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\obj\Debug\Brainfuck.exe
+D:\eduardm\My Documents\GitHub\BrainFuck\Brainfuck\Brainfuck\obj\Debug\Brainfuck.pdb
